@@ -1,4 +1,12 @@
-# Hospital Beds Database : Table Overview & Schema Reference
+<p align="center">
+  <img src="https://img.shields.io/badge/Project-Hospital_Beds-blue?style=for-the-badge&logo=database&logoColor=white" />
+  <img src="https://img.shields.io/badge/Database-MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Focus-Data_Analytics-orange?style=for-the-badge&logo=databricks&logoColor=white" />
+  <img src="https://img.shields.io/badge/Status-In_Process-yellow?style=for-the-badge&logo=clockify&logoColor=white" />
+</p>
+
+
+# Hospital Beds Database 
 
 This document provides SQL queries to **inspect data** and **view table structures** in the `hospital_beds` MySQL database.
 
