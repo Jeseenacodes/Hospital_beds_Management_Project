@@ -105,7 +105,7 @@ SELECT
     age, 
     satisfaction
 FROM patients
-WHERE service = 'Surgery'
+WHERE service = 'surgery'
   AND satisfaction < 70;
 ```
 
