@@ -109,3 +109,6 @@ WHERE service = 'Surgery'
   AND satisfaction < 70;
 ```
 
+Output: 
+
+![Alt text](https://github.com/Jeseenacodes/Hospital_beds_Management_Project/blob/main/Results/Day%202.png)
