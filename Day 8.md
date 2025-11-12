@@ -93,3 +93,7 @@ SELECT patient_id, upper(name) as Name, LOWER(service) as Service, LENGTH(name) 
 FROM patients
 where LENGTH(name) > 10
 ```
+Output:
+
+![Alt text](https://github.com/Jeseenacodes/Hospital_beds_Management_Project/blob/main/Results/Day%208.png)
+
