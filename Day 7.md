@@ -108,3 +108,6 @@ FROM services_weekly
 GROUP BY service
 HAVING Total_Patients_Refused > 100 AND Avg_Patient_Satisfaction < 80;
 ```
+Output:
+
+![Alt text](https://github.com/Jeseenacodes/Hospital_beds_Management_Project/blob/main/Day%207.md)
