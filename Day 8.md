@@ -81,7 +81,7 @@ FROM patients;
 
 ---
 ## Challenge
-- Create a patient summary that shows patient_id, full name in uppercase, service in lowercase, age category (if age >= 65 then 'Senior', if age >= 18 then 'Adult', else 'Minor'), and name length. Only show patients  whose name length is greater than 10 characters.*/
+- Create a patient summary that shows patient_id, full name in uppercase, service in lowercase, age category (if age >= 65 then 'Senior', if age >= 18 then 'Adult', else 'Minor'), and name length. Only show patients  whose name length is greater than 10 characters.
 
 ```sql
 SELECT patient_id, upper(name) as Name, LOWER(service) as Service, LENGTH(name) as Name_length,
