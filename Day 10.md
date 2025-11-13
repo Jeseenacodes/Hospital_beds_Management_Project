@@ -1,10 +1,28 @@
 
 # Day 10
+
+CASE statements add conditional logic to your SQL queries — similar to if-else statements in programming.
+There are two syntaxes for CASE:
+
 ## Basic Syntax
 
 ```sql
-
+# Simple Case
+CASE column_name
+    WHEN value1 THEN result1
+    WHEN value2 THEN result2
+    ELSE default_result
+END
 ````
+
+```sql
+# Searched Case
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    ELSE default_result
+END
+```
 
 ## Key Points
 
@@ -12,34 +30,83 @@
 
 ## Examples
 
-## 
+### Categorize Patient Satisfaction
 
 ```sql
-
+SELECT
+    name,
+    satisfaction,
+    CASE
+        WHEN satisfaction >= 90 THEN 'Excellent'
+        WHEN satisfaction >= 75 THEN 'Good'
+        WHEN satisfaction >= 60 THEN 'Fair'
+        ELSE 'Needs Improvement'
+    END AS satisfaction_category
+FROM patients;
+```
+### Create Age groups
+```sql
+SELECT
+    name,
+    age,
+    CASE
+        WHEN age < 18 THEN 'Pediatric'
+        WHEN age BETWEEN 18 AND 65 THEN 'Adult'
+        ELSE 'Senior'
+    END AS age_group
+FROM patients;
 ```
 
+### Conditional Aggregation
+```sql
+SELECT
+    service,
+    COUNT(*) AS total,
+    SUM(CASE WHEN satisfaction >= 80 THEN 1 ELSE 0 END) AS high_satisfaction_count,
+    SUM(CASE WHEN satisfaction < 60 THEN 1 ELSE 0 END) AS low_satisfaction_count
+FROM patients
+GROUP BY service;
+```
 ---
 
 ## Tips 
+- Always include ELSE → handles unexpected values (otherwise returns NULL)
+-  CASE is an expression, not a statement → you can use it anywhere a column is allowed
+-  Use CASE in ORDER BY for custom sorting:
+```sql
+ORDER BY CASE
+    WHEN service = 'Emergency' THEN 1
+    WHEN service = 'ICU' THEN 2
+    ELSE 3
+END;
+```
 
-##
----
+- Conditional Aggregation Patterns:
+```sql
+-- Count matching rows
+SUM(CASE WHEN condition THEN 1 ELSE 0 END)
 
+-- Conditional average
+AVG(CASE WHEN condition THEN value ELSE NULL END)
+```
+
+- Order matters → CASE evaluates top to bottom; first match wins
+- You can nest CASE statements, but keep readability in mind
 
 
 ## Practice Section
-
-1️⃣ 
+ 
+1️⃣ Categorise patients as 'High', 'Medium', or 'Low' satisfaction based on their scores.
 ```sql
 
 ```
 
-2️⃣ 
+2️⃣ Label staff roles as 'Medical' or 'Support' based on role type.
 ```sql
 
 ```
 
-3️⃣ 
+3️⃣ Create age groups for patients (0-18, 19-40, 41-65, 65+).
 ```sql
 
 ```
