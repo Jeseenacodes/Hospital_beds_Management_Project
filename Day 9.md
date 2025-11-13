@@ -84,12 +84,23 @@ Use `CAST(... AS INTEGER)` or `REAL` for consistency.
 
 ---
 
+## Challenge
+- Calculate the average length of stay (in days) for each service, 
+showing only services where the average stay is more than 7 days. 
+Also show the count of patients and order by average stay descending.
 
-
-
+```sql
+SELECT service, COUNT(patient_id) AS Patient_count,
+ROUND(AVG(DATEDIFF(departure_date, arrival_date)),2) AS Avg_length_of_Stay
+FROM patients
+WHERE departure_date IS NOT NULL
+GROUP BY service
+HAVING Avg_length_of_Stay > 7
+ORDER BY Avg_length_of_Stay DESC;
+```
 
 
 
 Output:
 
-![Alt text]()
+![Alt text](https://github.com/Jeseenacodes/Hospital_beds_Management_Project/blob/main/Results/Day%209.png)
