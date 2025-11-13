@@ -98,17 +98,48 @@ AVG(CASE WHEN condition THEN value ELSE NULL END)
  
 1️⃣ Categorise patients as 'High', 'Medium', or 'Low' satisfaction based on their scores.
 ```sql
-
+SELECT 
+    name,
+    satisfaction,
+    CASE
+        WHEN satisfaction >= 80 THEN 'High'
+        WHEN satisfaction >= 60 THEN 'Medium'
+        ELSE 'Low'
+    END AS satisfaction_category
+FROM patients;
 ```
 
 2️⃣ Label staff roles as 'Medical' or 'Support' based on role type.
 ```sql
+SELECT staff_name, role,
+CASE 
+	WHEN role IN( 'doctor', 'nurse') THEN 'Medical'
+    ELSE 'Support'
+    END AS Role_type
+FROM staff;
 
+-- Grouping by role (summaries)
+SELECT 
+    role, COUNT(*) AS staff_count,
+    CASE 
+        WHEN role IN ('doctor', 'nurse') THEN 'Medical'
+        ELSE 'Support'
+    END AS role_type
+FROM staff
+GROUP BY role;
 ```
 
 3️⃣ Create age groups for patients (0-18, 19-40, 41-65, 65+).
 ```sql
-
+SELECT 
+    name, age,
+    CASE
+        WHEN age BETWEEN 0 AND 18 THEN '0-18'
+        WHEN age BETWEEN 19 AND 40 THEN '19-40'
+        WHEN age BETWEEN 41 AND 65 THEN '41-65'
+        ELSE '65+'
+    END AS age_group
+FROM patients;
 ```
 
 ---
