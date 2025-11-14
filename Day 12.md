@@ -125,3 +125,32 @@ WHERE column IS NULL OR column = ''
 ```
 
 ---
+## Practice question
+```sql
+
+
+```
+
+
+```sql
+
+
+```
+
+
+```sql
+
+
+```
+---
+
+## Challenge
+
+```sql
+
+
+```
+
+Output:
+
+![Alt text]()
