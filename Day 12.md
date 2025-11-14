@@ -126,18 +126,20 @@ WHERE column IS NULL OR column = ''
 
 ---
 ## Practice question
+
+-- Find all weeks in services_weekly where no special event occurred.
 ```sql
 
 
 ```
 
-
+-- Count how many records have null or empty event values.
 ```sql
 
 
 ```
 
-
+-- List all services that had at least one week with a special event.
 ```sql
 
 
@@ -145,6 +147,10 @@ WHERE column IS NULL OR column = ''
 ---
 
 ## Challenge
+-- Analyze the event impact by comparing weeks with events vs 
+weeks without events. Show: event status ('With Event' or 'No Event'), 
+count of weeks, average patient satisfaction, and average staff morale. 
+Order by average patient satisfaction descending.
 
 ```sql
 
