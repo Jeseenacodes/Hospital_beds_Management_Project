@@ -126,7 +126,7 @@ along with the count of occurrences for each combination. Order by count
 descending.
 
 ```sql
-SELECT DISTINCT service, event,
+SELECT service, event,
 COUNT(*) AS event_count 
 FROM services_weekly 
 WHERE event IS NOT NULL AND LOWER(event) <> 'none'
@@ -136,4 +136,4 @@ ORDER BY event_count DESC;
 
 Output:
 
-![Alt text]()
+![Alt text](https://github.com/Jeseenacodes/Hospital_beds_Management_Project/blob/main/Results/Day%2011.png)
