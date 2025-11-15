@@ -7,22 +7,35 @@ It is **not**:
 
 * Zero
 * An empty string
-* A space
-  It simply means **no value**.
+* but the absence of a value
 
 
 ## NULL Handling Basics
 
 ```sql
 -- Check for NULL
-IS NULL
-IS NOT NULL
+WHERE col IS NULL
+WHERE col IS NOT NULL
 
--- Replace NULL with another value
+-- Replace NULL with default value
 COALESCE(column, default_value)
 
 -- NULL-safe comparison (varies by database)
 column IS DISTINCT FROM value
+```
+```sql
+# DO NOT USE
+WHERE column = NULL;
+WHERE column != NULL;
+```
+
+## Counting NULLs
+```sql
+SELECT
+    COUNT(*) AS total_rows,            -- includes NULLs
+    COUNT(event) AS non_null_events,   -- excludes NULLs
+    COUNT(*) - COUNT(event) AS null_events
+FROM services_weekly;
 ```
 
 ---
