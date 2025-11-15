@@ -200,4 +200,4 @@ ORDER BY Average_Patient_Satisfaction DESC;
 
 Output:
 
-![Alt text]()
+![Alt text](https://github.com/Jeseenacodes/Hospital_beds_Management_Project/blob/main/Results/Day%2012.png)
