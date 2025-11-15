@@ -176,7 +176,8 @@ Order by average patient satisfaction descending.
 ```sql
 SELECT DISTINCT event FROM services_weekly;
 /* none | flu | donation | strike */
-> event column contains real text values, not NULL so treat “none” as No Event
+
+# event column contains real text values, not NULL so treat “none” as No Event
 ```
 
 ```sql
