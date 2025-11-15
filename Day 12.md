@@ -174,8 +174,27 @@ count of weeks, average patient satisfaction, and average staff morale.
 Order by average patient satisfaction descending.
 
 ```sql
+SELECT DISTINCT event FROM services_weekly;
+/* none | flu | donation | strike */
+> event column contains real text values, not NULL so treat “none” as No Event
+```
 
-
+```sql
+SELECT 
+    CASE 
+        WHEN LOWER(event) = 'none' THEN 'No Event'
+        ELSE 'With Event'
+    END AS Event_Status,
+    COUNT(*) AS Week_Counts,
+    ROUND(AVG(patient_satisfaction),2) AS Average_Patient_Satisfaction,
+    ROUND(AVG(staff_morale),2) AS Average_Staff_Morale
+FROM services_weekly
+GROUP BY 
+    CASE 
+        WHEN LOWER(event) = 'none' THEN 'No Event'
+        ELSE 'With Event'
+    END
+ORDER BY Average_Patient_Satisfaction DESC;
 ```
 
 Output:
