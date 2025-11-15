@@ -38,6 +38,14 @@ SELECT
 FROM services_weekly;
 ```
 
+## Filter Out Empty + NULL Values
+```sql
+SELECT *
+FROM services_weekly
+WHERE event IS NOT NULL
+  AND event != '';
+```
+
 ---
 
 ## Practical Examples
