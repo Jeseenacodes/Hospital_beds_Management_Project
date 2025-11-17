@@ -128,17 +128,26 @@ WHERE p.age > 65;
 
 1️⃣ Join patients and staff based on their common service field (show patient and staff who work in same service).
 ```sql
-
+select p.patient_id,p.name,p.service,s.staff_name
+from patients as p
+inner join staff as s
+on p.service = s.service;
 ```
 
 2️⃣ Join services_weekly with staff to show weekly service data with staff information.
 ```sql
-
+select s.staff_id,s.staff_name,s.role,s.service,sw.week
+from staff as s
+inner join services_weekly as sw
+on s.service = sw.service;
 ```
 
 3️⃣ Create a report showing patient information along with staff assigned to their service.
 ```sql
-
+select p.patient_id,p.name,p.service,s.staff_id,s.staff_name,s.role
+from patients as p
+inner join staff as s
+on p.service = s.service;
 ```
 
 ---
