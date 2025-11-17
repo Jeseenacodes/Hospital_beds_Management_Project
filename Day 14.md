@@ -1,5 +1,5 @@
 
-# LEFT JOIN & RIGHT JOIN — Explained Clearly
+# LEFT JOIN & RIGHT JOIN
 
 * **LEFT JOIN** → Returns **all rows** from the **left table**, plus matching rows from the right table.
   If no match → right-side columns become **NULL**.
@@ -154,17 +154,17 @@ WHERE table2.type = 'A';
 
 ## Practice Section
 
-1️⃣ Join patients and staff based on their common service field (show patient and staff who work in same service).
+1️⃣ Show all staff members and their schedule information (including those with no schedule entries).
 ```sql
 
 ```
 
-2️⃣ Join services_weekly with staff to show weekly service data with staff information.
+2️⃣ List all services from services_weekly and their corresponding staff (show services even if no staff assigned).
 ```sql
 
 ```
 
-3️⃣ Create a report showing patient information along with staff assigned to their service.
+3️⃣ Display all patients and their service's weekly statistics (if available).
 ```sql
 
 ```
