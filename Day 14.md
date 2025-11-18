@@ -189,6 +189,11 @@ LEFT JOIN staff_schedule ss ON s.staff_name = ss.staff_name
 GROUP BY s.staff_id, s.staff_name, s.role, s.service
 ORDER BY weeks_present DESC;
 ```
+Used COALESCE(SUM(ss.present), 0) because:
+1. SUM counts only actual present days
+2. COALESCE replaces SUM’s NULL with 0 for employees with no schedule
+3. COUNT would count all rows, including absences (0), making attendance wrong
+
 Output:
 
 <img width="282" height="217" alt="Screenshot 2025-11-18 093437" src="https://github.com/user-attachments/assets/07956847-c3e9-461b-a490-fc065ae3ee28" />
