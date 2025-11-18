@@ -171,13 +171,19 @@ WHERE table2.type = 'A';
 
 ---
 ## Challenge
-1️⃣ Create a staff utilisation report showing all staff members (staff_id, staff_name, role, service) 
-and the count of weeks they were present (from staff_schedule).
+1️⃣ Create a staff utilisation report showing all staff members (staff_id, staff_name, role, service) and the count of weeks they were present (from staff_schedule).
 Include staff members even if they have no schedule records. Order by weeks present descending.
 
 ```sql
-
+SELECT s.staff_id, s.staff_name, s.role, s.service,
+COUNT(ss.week) AS Weeks_present
+FROM staff AS S
+LEFT JOIN staff_schedule AS ss ON s.staff_id = ss.staff_id 
+GROUP BY s.staff_id, s.staff_name, s.role, s.service
+ORDER BY Weeks_present DESC; 
 ```
+Output:
+
 
 
 
