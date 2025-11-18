@@ -156,17 +156,23 @@ WHERE table2.type = 'A';
 
 1️⃣ Show all staff members and their schedule information (including those with no schedule entries).
 ```sql
-
+SELECT s.*, ss.week, ss.present
+FROM staff s
+LEFT JOIN staff_schedule ss ON s.staff_id = ss.staff_id;
 ```
 
 2️⃣ List all services from services_weekly and their corresponding staff (show services even if no staff assigned).
 ```sql
-
+SELECT sw.week, sw.month, sw.service, s.staff_id, s.staff_name
+FROM services_weekly sw
+LEFT JOIN staff s ON sw.service = s.service;
 ```
 
 3️⃣ Display all patients and their service's weekly statistics (if available).
 ```sql
-
+SELECT p.*, sw.*
+FROM patients p
+LEFT JOIN services_weekly sw ON p.service = sw.service;
 ```
 
 ---
@@ -175,14 +181,18 @@ WHERE table2.type = 'A';
 Include staff members even if they have no schedule records. Order by weeks present descending.
 
 ```sql
-SELECT s.staff_id, s.staff_name, s.role, s.service,
-COUNT(ss.week) AS Weeks_present
-FROM staff AS S
-LEFT JOIN staff_schedule AS ss ON s.staff_id = ss.staff_id 
+SELECT s.staff_id, s.staff_name,
+       COALESCE(SUM(ss.present), 0) AS weeks_present
+FROM staff s
+LEFT JOIN staff_schedule ss ON s.staff_name = ss.staff_name
+ AND s.service = ss.service
 GROUP BY s.staff_id, s.staff_name, s.role, s.service
-ORDER BY Weeks_present DESC; 
+ORDER BY weeks_present DESC;
 ```
 Output:
+
+<img width="282" height="217" alt="Screenshot 2025-11-18 093437" src="https://github.com/user-attachments/assets/07956847-c3e9-461b-a490-fc065ae3ee28" />
+
 
 
 
