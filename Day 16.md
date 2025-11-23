@@ -104,6 +104,16 @@ WHERE EXISTS (
 | **Correlated Subquery**   | Depends on outer row       | Same as above             | Row-by-row checks (e.g., latest order per customer)                 | More powerful but slower            |
 | **Uncorrelated Subquery** | Independent of outer query | Same as above             | Subquery runs once → used for fixed comparisons                     | Faster than correlated              |
 ---
+
+| Type                      | Shape                   | Operators    | Example             |
+| ------------------------- | ----------------------- | ------------ | ------------------- |
+| **Single-value subquery** | 1 row, 1 value          | =, >, <, >=  | AVG, MAX, COUNT     |
+| **Multi-value subquery**  | Multiple rows, 1 column | IN, NOT IN   | List of services    |
+| **Row subquery**          | 1 row, multiple columns | =            | (SELECT id, name)   |
+| **Table subquery**        | Multi-row, multi-column | EXISTS, JOIN | Correlated subquery |
+
+
+---
 ## Challenge
 1️⃣  Find all patients who were admitted to services that had at least one week where patients were refused AND the average patient satisfaction for that service was below the overall hospital average satisfaction. Show patient_id, name, service, and their personal satisfaction score.
 ```sql
