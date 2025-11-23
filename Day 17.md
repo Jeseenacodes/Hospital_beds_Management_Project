@@ -1,4 +1,3 @@
-
 # Subqueries in SELECT & FROM Clauses
 
 ### Key Concepts
@@ -103,8 +102,33 @@ the difference between their total admissions and the average admissions across 
 
 ```sql
 
-
+SELECT st.service, st.total_patients,
+    (st.total_patients - oa.avg_patients) AS difference_from_avg,
+    CASE
+        WHEN st.total_patients > oa.avg_patients THEN 'Above Average'
+        WHEN st.total_patients = oa.avg_patients THEN 'Average'
+        ELSE 'Below Average'
+    END AS rank_indicator
+FROM 
+    ( SELECT service, SUM(patients_admitted) AS total_patients
+        FROM services_weekly
+        GROUP BY service
+    ) st
+CROSS JOIN 
+    (
+        SELECT AVG(total_patients) AS avg_patients
+        FROM 
+            (
+                SELECT service, SUM(patients_admitted) AS total_patients
+                FROM services_weekly
+                GROUP BY service
+            ) x
+    ) oa
+ORDER BY st.total_patients DESC;
 
 ```
 
 Output:
+
+ <img width="402" height="96" alt="image" src="https://github.com/user-attachments/assets/8900ce22-de66-4bf8-84c9-918f818fbd3f" />
+
