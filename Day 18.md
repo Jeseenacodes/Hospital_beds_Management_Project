@@ -57,9 +57,19 @@ Use **`UNION`** when:
 1️⃣
 
 ```sql
-
+SELECT patient_id AS Id, name AS Name, "Patient" AS Type, service AS Service
+FROM patients 
+WHERE service IN ("emergency", "surgery")
+UNION ALL
+SELECT staff_id AS Id, staff_name AS Name,  "Staff" AS Type, service AS Service
+FROM staff 
+WHERE service IN ("emergency", "surgery")
+ORDER BY Type, service, Name;
 ```
 
 Output:
 
+<img width="316" height="209" alt="Screenshot 2025-11-23 214947" src="https://github.com/user-attachments/assets/2f66e152-ec7a-433f-8c8d-b1281e47618f" />
+
+<img width="315" height="198" alt="image" src="https://github.com/user-attachments/assets/6e2ef5d8-c968-4238-bbd3-be8b65662bbc" />
 
