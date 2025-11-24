@@ -44,7 +44,7 @@ Use **`UNION`** when:
 ---
 | Feature / Rule             | **UNION**                                      | **UNION ALL**                                  |
 | -------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| **Duplicates removed?**    | ✔ Yes                                          | ✖ No (keeps all rows)                          |
+| **Duplicates removed?**    |  Yes                                          | No (keeps all rows)                          |
 | **Performance**            | Slower (deduplication required)                | Faster (no DISTINCT check)                     |
 | **Use case**               | When you must remove duplicate rows            | When duplicates don’t matter or won’t occur    |
 | **Column requirements**    | Same number of columns + compatible data types | Same number of columns + compatible data types |
