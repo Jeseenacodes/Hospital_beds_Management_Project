@@ -123,9 +123,19 @@ week number, patients_admitted, running total of patients admitted (cumulative),
 and the difference between current week admissions and the service average. 
 Filter for weeks 10-20 only.
 ```sql
-
+SELECT 
+service AS Service, 
+week AS Week, 
+patients_admitted AS Patients_Admitted,
+SUM(patients_admitted) OVER(PARTITION BY service ORDER BY week) AS Running_Total_Patients_Admitted,
+ROUND(AVG(patient_satisfaction) OVER(PARTITION BY service ORDER BY week ROWS BETWEEN 2 PRECEDING AND CURRENT ROW),2) AS Moving_Avg_Patient_Satisfaction,
+ROUND(patients_admitted - AVG(patients_admitted) OVER(PARTITION BY service),2) AS Difference_of_service_avg
+FROM 
+( SELECT * FROM services_weekly WHERE week between 10 AND 20 ) AS filter_week
+ORDER BY Service, Week ;
 ```
 
+<img width="788" height="352" alt="image" src="https://github.com/user-attachments/assets/ae8d30d7-c498-4684-8548-b22aa713a3c8" />
 
 
 
