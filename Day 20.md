@@ -88,10 +88,51 @@ col - AVG(col) OVER (PARTITION BY group)
 
 ❗ **Window functions can reference other window functions**, but **cannot nest** them:
 
-❌ Not allowed:
+```sql
+# ❌ Not allowed:
+SUM( AVG(col) OVER (...) ) OVER (...)
+```
+---
+## Examples
+
+### Running Total of Patients Admitted per Service
 
 ```sql
-SUM( AVG(col) OVER (...) ) OVER (...)
+SELECT
+    service, week, patients_admitted,
+    SUM(patients_admitted) OVER ( PARTITION BY service ORDER BY week ) AS cumulative_admissions
+FROM services_weekly
+ORDER BY service, week;
+```
+
+### 3-Week Moving Average of Satisfaction
+
+```sql
+SELECT
+     service, week, patient_satisfaction,
+    ROUND(  AVG(patient_satisfaction) OVER (  PARTITION BY service   ORDER BY week  ROWS BETWEEN 2 PRECEDING AND CURRENT ROW  ), 2 ) AS moving_avg_3week
+FROM services_weekly
+ORDER BY service, week;
+```
+
+### Compare to Service Average
+
+```sql
+SELECT
+    service, week, patients_admitted,
+    AVG(patients_admitted) OVER (PARTITION BY service) AS service_avg,
+patients_admitted - AVG(patients_admitted) OVER (PARTITION BY service) AS diff_from_avg
+FROM services_weekly;
+```
+
+### Running Min/Max Satisfaction
+
+```sql
+SELECT
+    service, week, patient_satisfaction,
+    MIN(patient_satisfaction) OVER ( PARTITION BY service ORDER BY week ) AS min_so_far,
+    MAX(patient_satisfaction) OVER ( PARTITION BY service ORDER BY week ) AS max_so_far
+FROM services_weekly;
 ```
 
 ---
