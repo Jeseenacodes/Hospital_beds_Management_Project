@@ -8,9 +8,9 @@ They calculate **running totals**, **moving averages**, and **cumulative statist
 ```sql
 SUM(column)   OVER (...)   -- Running total
 AVG(column)   OVER (...)   -- Moving average
-COUNT(*)      OVER (...)   -- Running count
 MIN(column)   OVER (...)   -- Running minimum
 MAX(column)   OVER (...)   -- Running maximum
+COUNT(*)      OVER (...)   -- Running count
 ```
 
 ## **Window Frame Clauses**
