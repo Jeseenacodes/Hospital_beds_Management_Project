@@ -1,7 +1,7 @@
 
 # **Aggregate Window Functions**
 
-Aggregate window functions calculate **running totals**, **moving averages**, and **cumulative statistics** **without reducing rows** (unlike GROUP BY).
+They calculate **running totals**, **moving averages**, and **cumulative statistics** **without reducing rows** (unlike GROUP BY).
 
 ## **Common Window Aggregates**
 
