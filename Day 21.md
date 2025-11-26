@@ -32,9 +32,9 @@ JOIN cte2 ON ...;
 
 ---
 
-# Tips
+## Tips
 
-## **1. Break Down Complex Queries Step-by-Step**
+## 1. Break Down Complex Queries Step-by-Step
 
 Instead of nesting subqueries:
 
@@ -48,7 +48,7 @@ SELECT *
 FROM step3;
 ```
 
-## **2. CTEs vs Subqueries**
+## 2. CTEs vs Subqueries
 
 ### **CTEs**
 
@@ -66,7 +66,7 @@ FROM patients, avg_age
 WHERE age > avg_age.avg_age;
 ```
 
-### **Subquery**
+### Subquery
 
 More concise for simple cases:
 
@@ -76,7 +76,7 @@ FROM patients
 WHERE age > (SELECT AVG(age) FROM patients);
 ```
 
-##  **3. CTEs Are Evaluated Once**
+##  3. CTEs Are Evaluated Once
 
 Useful when the same logic is reused multiple times:
 
@@ -92,7 +92,7 @@ JOIN service_avg sa ON p.service = sa.service
 WHERE p.satisfaction > sa.avg_sat;   -- referencing CTE again
 ```
 
-## **4. Use Descriptive CTE Names**
+## 4. Use Descriptive CTE Names
 
 ❌ `WITH x AS, y AS, z AS`
 ✔️ `WITH patient_stats AS, staff_summary AS, weekly_trends AS`
@@ -100,7 +100,7 @@ WHERE p.satisfaction > sa.avg_sat;   -- referencing CTE again
 Good naming = easier debugging and maintenance.
 
 
-## **5. Easy to Debug**
+## 5. Easy to Debug
 
 Test each CTE alone:
 
@@ -116,14 +116,14 @@ WITH
 SELECT * FROM cte2;
 ```
 
-## **6. Not Materialized by Default**
+## 6. Not Materialized by Default
 
 Some databases **recompute CTEs when referenced multiple times**.
 If a CTE is expensive and reused often → consider **temporary tables**.
 
 ---
 
-# ** Summary Table**
+## Summary 
 
 | Concept                    | Description                                                                          | Example                                          |
 | -------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------ |
