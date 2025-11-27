@@ -171,8 +171,7 @@ patients_admitted AS Patients_Admitted,
 SUM(patients_admitted) OVER(PARTITION BY service ORDER BY week) AS Running_Total_Patients_Admitted,
 ROUND(AVG(patient_satisfaction) OVER(PARTITION BY service ORDER BY week ROWS BETWEEN 2 PRECEDING AND CURRENT ROW),2) AS Moving_Avg_Patient_Satisfaction,
 ROUND(patients_admitted - AVG(patients_admitted) OVER(PARTITION BY service),2) AS Difference_of_service_avg
-FROM 
-( SELECT * FROM services_weekly WHERE week between 10 AND 20 ) AS filter_week
+FROM  services_weekly WHERE week between 10 AND 20 
 ORDER BY Service, Week ;
 ```
 
