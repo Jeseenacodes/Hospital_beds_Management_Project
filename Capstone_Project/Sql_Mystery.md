@@ -1,5 +1,7 @@
 
--- Identify where and when the crime happened	
+#  SQL Murder Mystery — How I Identified the Killer
+
+### **1. Identifing where and when the crime happened**
 
 ```sql
 SELECT *
@@ -10,13 +12,21 @@ WHERE room = 'CEO Office'
   AND '2025-10-15 22:00:00';
 
 ```
-Output: 
 
-1	CEO Office	Fingerprint on desk	2025-10-15 21:05:00
-2	CEO Office	Keycard swipe logs mismatch	2025-10-15 21:10:00
-		
+### **Output:**
 
--- Analyze who accessed critical areas at the time
+| evidence_id | room       | description                 | found_time       |
+| ----------- | ---------- | --------------------------- | ---------------- |
+| 1           | CEO Office | Fingerprint on desk         | 2025-10-15 21:05 |
+| 2           | CEO Office | Keycard swipe logs mismatch | 2025-10-15 21:10 |
+
+### **Conclusion:**
+
+> The murder happened **in the CEO Office**, and the crime occurred **around 9 PM**, setting the **time window** for the rest of the investigation.
+
+---
+### 2. Analyzed who accessed critical areas at the time
+
 ```sql
 SELECT k.employee_id, e.name, k.entry_time, k.exit_time
 FROM keycard_logs k
@@ -25,10 +35,21 @@ WHERE k.room = 'CEO Office'
   AND k.entry_time BETWEEN '2025-10-15 20:45:00' AND '2025-10-15 21:15:00'
 ORDER BY k.entry_time;
 ```
-Output: 
- 4	David Kumar	2025-10-15 20:50:00	2025-10-15 21:00:00
 
--- Cross-check alibis with actual logs	J
+### **Output:**
+
+| employee_id | name        | entry_time | exit_time |
+| ----------- | ----------- | ---------- | --------- |
+| 4           | David Kumar | 20:50      | 21:00     |
+
+### **Conclusion:**
+
+> Only **one person** entered the CEO Office in the critical time window: **David Kumar** which makes him the **primary suspect**.
+
+---
+
+### 3. Cross-check alibis with actual logs
+
 ```sql
 
 SELECT a.employee_id, emp.name, a.claimed_location, a.claim_time, k.room, k.entry_time
@@ -40,11 +61,20 @@ WHERE a.claim_time BETWEEN '2025-10-15 20:30:00' AND '2025-10-15 21:30:00'
   AND k.room = 'CEO Office'
   AND k.entry_time BETWEEN '2025-10-15 20:45:00' AND '2025-10-15 21:15:00';
 ```
-Output:
 
-4	David Kumar	Server Room	2025-10-15 20:50:00	CEO Office	2025-10-15 20:50:00
+### **Output:**
 
--- Investigate suspicious calls made around the time	
+| employee_id | name        | claimed_location | claim_time | room_actual | entry_time |
+| ----------- | ----------- | ---------------- | ---------- | ----------- | ---------- |
+| 4           | David Kumar | Server Room      | 20:50      | CEO Office  | 20:50      |
+
+### **Conclusion:**
+> David claimed he was in the **Server Room**, But keycard logs show he was in the **CEO Office** at the same time. **David lied about his whereabouts which makes him more suspicious. 
+
+---
+
+### 4. Investigate suspicious calls made around the time 
+
 ```sql
 SELECT c.call_id, c.call_time, c.duration_sec,
        caller.name AS caller, receiver.name AS receiver
@@ -54,11 +84,21 @@ LEFT JOIN employees receiver ON c.receiver_id = receiver.employee_id
 WHERE c.call_time BETWEEN '2025-10-15 20:50:00' AND '2025-10-15 21:00:00'
 ORDER BY c.call_time;
 ```
-Output:
 
-1	2025-10-15 20:55:00	45	David Kumar	Alice Johnson
+### **Output:**
 
--- Match evidence with movements and claims	JOIN, WHERE
+| call_id | call_time | duration | caller      | receiver      |
+| ------- | --------- | -------- | ----------- | ------------- |
+| 1       | 20:55     | 45 sec   | David Kumar | Alice Johnson |
+
+### **Conclusion:**
+
+> David made a **brief call** shortly before the murder, which could indicate planning, coordination, or stress. This is the third red flag where an unusual call is made right before murder.**
+
+---
+
+### 5. Match evidence with movements and claims
+
 ```sql
 SELECT 
     e.evidence_id, e.description, e.found_time,
@@ -71,14 +111,26 @@ WHERE e.room = 'CEO Office'
         DATE_SUB(e.found_time, INTERVAL 2 HOUR)
     AND DATE_ADD(e.found_time, INTERVAL 2 HOUR);
 ```
-Output:
 
-2	Keycard swipe logs mismatch	2025-10-15 21:10:00	4	David Kumar	2025-10-15 20:50:00
-1	Fingerprint on desk	2025-10-15 21:05:00	4	David Kumar	2025-10-15 20:50:00   
+### **Output:**
+
+| evidence              | found_time | employee    | entry_time |
+| --------------------- | ---------- | ----------- | ---------- |
+| Keycard logs mismatch | 21:10      | David Kumar | 20:50      |
+| Fingerprint on desk   | 21:05      | David Kumar | 20:50      |
+
+### **Conclusion:**
+
+> **Both pieces of evidence** in the CEO Office tie back to David’s entry window. Fingerprints + keycard irregularities strongly link him to the scene, which is the **Fourth red flag: physical evidence matches David's presence.**
+---
 
 
--- Combine all findings to identify the killer	
--- Using ctes & joins
+### 6. Combining All Findings 
+
+* People who entered the CEO Office
+* People with suspicious calls
+* People with alibi conflicts
+* Presence of evidence
 
 ```sql
 WITH entered AS (
@@ -122,8 +174,25 @@ LIMIT 1;
  );
 ```
 
-Output:
+The final CTE query returns:
+
+| killer          |
+| --------------- |
+| **David Kumar** |
 
 <img width="77" height="46" alt="image" src="https://github.com/user-attachments/assets/19c7e3b3-058c-48ec-b6e3-aed63649838f" />
+
+
+##  **Final Conclusion: David Kumar is the Killer**
+
+ 1. David Kumar was the ONLY person who entered the CEO Office during the murder window.
+ 2. He lied about his location, claiming he was in the Server Room while keycard logs place him at the crime scene.
+ 3. He made a suspicious phone call minutes before the murder.
+ 4. Physical evidence (fingerprints + keycard mismatch) matches his movements.
+
+Hence the SQL investigation clearly identifies:
+
+#  **Killer: David Kumar**
+
 
 
