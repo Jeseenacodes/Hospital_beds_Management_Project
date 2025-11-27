@@ -1,5 +1,5 @@
 
-#  SQL Murder Mystery — How I Identified the Killer
+#  SQL Murder Mystery : How I Identified the Killer
 
 ### **1. Identifing where and when the crime happened**
 
